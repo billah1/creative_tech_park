@@ -50,7 +50,7 @@ class ProductController extends Controller
         ]);
 
         $product->update($request->only('name', 'description', 'price'));
-        $product->categories()->sync($request->categories);
+        $product->categories()->sync($request->input('categories', []));
 
         return redirect()->route('products.index')->with('success', 'Product updated successfully');
     }

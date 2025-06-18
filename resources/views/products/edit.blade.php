@@ -5,12 +5,16 @@
     <input name="name" value="{{ $product->name }}" class="border p-2 w-full mb-2" />
     <textarea name="description" class="border p-2 w-full mb-2">{{ $product->description }}</textarea>
     <input name="price" type="number" value="{{ $product->price }}" class="border p-2 w-full mb-2" />
-    <label>Categories:</label>
-    <select name="categories[]" multiple class="border w-full p-2 mb-2">
+  <label>Categories:</label>
+    <div class="flex flex-wrap">
         @foreach($categories as $category)
-            <option value="{{ $category->id }}" {{ $product->categories->contains($category->id) ? 'selected' : '' }}>{{ $category->name }}</option>
+            <label class="mr-4">
+                <input type="checkbox" name="categories[]" value="{{ $category->id }}"
+                    {{ in_array($category->id, $product->categories->pluck('id')->toArray()) ? 'checked' : '' }}>
+                {{ $category->name }}
+            </label>
         @endforeach
-    </select>
+    </div>
     <button class="bg-yellow-500 text-white px-4 py-2">Update</button>
 </form>
 @endsection
